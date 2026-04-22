@@ -1,126 +1,165 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>El Hama'ayan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --gold: #c9a84c;
-      --dark-bg: #0a0a0a;
-      --text-main: #e8e0d0;
-    }
-    body {
-      background: var(--dark-bg);
-      color: var(--text-main);
-      font-family: 'Cormorant Garamond', serif;
-      transition: direction 0.3s ease;
-    }
-    
-    /* Sélecteur de Langue */
-    .lang-switcher {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
-      display: flex;
-      gap: 10px;
-    }
-    .lang-btn {
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      padding: 5px 10px;
-      cursor: pointer;
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
-      border-radius: 4px;
-    }
-    .lang-btn:hover { background: rgba(201,168,76,0.1); }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El HaMa'ayan - Explore the Depths of Knowledge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Roboto:wght@400;700&family=Inter:wght@400&family=Heebo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #0A0A0A;
+            /* Texture grainée subtile */
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAADUlEQVQIW2P4z8DwHwAFBQIAX8jx0gAAAABJRU5ErkJggg==');
+            background-size: 2px 2px;
+            color: #FFFFFF;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-    /* Structure Logo */
-    .page-wrap { max-width: 1100px; margin: 0 auto; padding: 60px 20px; text-align: center; }
-    .hero-frame { 
-      position: relative; padding: 40px; margin-bottom: 20px;
-      border: 1px solid rgba(201,168,76,0.2);
-    }
-    .logo-img { width: 95%; max-width: 500px; height: auto; display: block; margin: 0 auto; }
+        /* Header Doré */
+        header {
+            background: rgba(10, 10, 10, 0.98);
+            border-bottom: 2px solid #D4AF37;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-    /* Grille Vidéo */
-    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-    .video-card { background: #141414; border-radius: 12px; overflow: hidden; border: 1px solid rgba(201,168,76,0.1); }
-    .video-thumb { aspect-ratio: 16/9; background: #222; position: relative; }
-    .video-caption { padding: 20px; font-size: 1.2rem; }
+        .logo-text h1 {
+            font-family: 'Lora', serif;
+            font-size: 28px;
+            color: #D4AF37;
+            letter-spacing: 2px;
+        }
 
-    /* Support RTL (Hébreu) */
-    body.rtl { direction: rtl; }
-    body.rtl .lang-switcher { right: auto; left: 20px; }
-  </style>
+        /* Section Héros avec Logo */
+        .hero {
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 60px;
+            border: 1px solid rgba(212, 175, 55, 0.3); /* Cadre doré léger */
+            margin: 20px;
+        }
+
+        .hero-content h2 {
+            font-family: 'Lora', serif;
+            font-size: 48px;
+            color: #D4AF37;
+            line-height: 1.2;
+        }
+
+        /* Cartes de Cours Cinématiques */
+        .courses {
+            padding: 60px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .course-card {
+            position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            border-color: #D4AF37;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 3px solid #D4AF37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .play-button::after {
+            content: '';
+            border-left: 15px solid #D4AF37;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            margin-left: 4px;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body id="body-tag">
-
-  <div class="lang-switcher">
-    <button class="lang-btn" onclick="changeLang('fr')">FR</button>
-    <button class="lang-btn" onclick="changeLang('en')">EN</button>
-    <button class="lang-btn" onclick="changeLang('he')">עב</button>
-  </div>
-
-  <div class="page-wrap">
+<body class="fade-in">
     <header>
-      <div class="hero-frame">
-        <img class="logo-img" src="logo.png" onerror="this.src='https://placehold.co/600x200/0a0a0a/c9a84c?text=EL+HAMA%27AYAN'" alt="Logo">
-      </div>
-      <h2 id="main-title">Découvrez la Sagesse</h2>
+        <div class="logo-section">
+            <img src="https://elhamaayan.com/wp-content/uploads/2024/03/logo.png" alt="Logo">
+            <div class="logo-text">
+                <h1>EL HAMA'AYAN</h1>
+                <p>מאירים את החיים</p>
+            </div>
+        </div>
+        <nav>
+            <a href="#">HOME</a>
+            <a href="#">SHIURIM</a>
+            <a href="#">LECTURERS</a>
+            <a href="#">DONATE</a>
+        </nav>
     </header>
 
-    <div class="video-grid">
-      <div class="video-card">
-        <div class="video-thumb"></div>
-        <div class="video-caption" id="vid-1">Mysticisme Juif</div>
-      </div>
-      <div class="video-card">
-        <div class="video-thumb"></div>
-        <div class="video-caption" id="vid-2">Spiritualité d'Israël</div>
-      </div>
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Expand Your Knowledge and <em>Enlighten Your Life</em></h2>
+            <p>Explore courses and upcoming online events to enrich your life.</p>
+            <a href="#" class="cta-button">Start Learning</a>
+        </div>
+        <div class="hero-logo">
+            <img src="https://elhamaayan.com/wp-content/uploads/2024/03/logo.png" alt="Big Logo">
+        </div>
+    </section>
+
+    <div class="courses">
+        <div class="course-card">
+            <img src="https://images.unsplash.com/photo-1504052434139-4415df58359b?auto=format&fit=crop&q=80&w=800" alt="Course 1">
+            <div class="play-button"></div>
+            <div class="course-info"><h3>Introduction to Jewish Mysticism</h3></div>
+        </div>
+        <div class="course-card">
+            <img src="https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?auto=format&fit=crop&q=80&w=800" alt="Course 2">
+            <div class="play-button"></div>
+            <div class="course-info"><h3>History and Spirituality of Israel</h3></div>
+        </div>
+        <div class="course-card">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800" alt="Course 3">
+            <div class="play-button"></div>
+            <div class="course-info"><h3>Mindfulness and Jewish Wisdom</h3></div>
+        </div>
     </div>
-  </div>
 
-  <script>
-    const translations = {
-      fr: {
-        title: "Découvrez la Sagesse",
-        vid1: "Mysticisme Juif",
-        vid2: "Spiritualité d'Israël"
-      },
-      en: {
-        title: "Discover Wisdom",
-        vid1: "Jewish Mysticism",
-        vid2: "Spirituality of Israel"
-      },
-      he: {
-        title: "גלו את החוכמה",
-        vid1: "מיסטיקה יהודית",
-        vid2: "רוחניות ישראל"
-      }
-    };
-
-    function changeLang(lang) {
-      const body = document.getElementById('body-tag');
-      
-      // Gérer la direction du texte
-      if (lang === 'he') {
-        body.classList.add('rtl');
-      } else {
-        body.classList.remove('rtl');
-      }
-
-      // Changer les textes
-      document.getElementById('main-title').innerText = translations[lang].title;
-      document.getElementById('vid-1').innerText = translations[lang].vid1;
-      document.getElementById('vid-2').innerText = translations[lang].vid2;
-    }
-  </script>
+    <footer style="padding: 60px; border-top: 2px solid #D4AF37; text-align: center;">
+        <p>&copy; 2026 EL HAMA'AYAN. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
