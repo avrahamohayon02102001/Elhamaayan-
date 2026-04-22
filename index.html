@@ -3,229 +3,124 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>El Hama'ayan - Expand Your Knowledge</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
-  
+  <title>El Hama'ayan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    
     :root {
       --gold: #c9a84c;
-      --gold-light: #e2c87a;
       --dark-bg: #0a0a0a;
-      --dark-card: #141414;
       --text-main: #e8e0d0;
-      --text-muted: #8a8070;
     }
-
-    html, body {
+    body {
       background: var(--dark-bg);
       color: var(--text-main);
       font-family: 'Cormorant Garamond', serif;
-      min-height: 100vh;
-      overflow-x: hidden;
+      transition: direction 0.3s ease;
+    }
+    
+    /* Sélecteur de Langue */
+    .lang-switcher {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      gap: 10px;
     }
-
-    /* Effet de grain */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 1  0 1 0 0 1  0 0 1 0 1  0 0 0 12 -5'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23w)' opacity='1'/%3E%3C/svg%3E");
-      mix-blend-mode: soft-light;
-      opacity: 0.05;
-    }
-
-    .page-wrap {
-      position: relative;
-      z-index: 2;
-      max-width: 1100px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 0 20px 80px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    header {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 60px;
-    }
-
-    .hero-frame {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 800px;
-      padding: 40px 20px;
-      margin-bottom: 20px;
-    }
-
-    /* Coins dorés */
-    .hero-frame::before, .hero-frame::after,
-    .hero-frame .c-br, .hero-frame .c-bl {
-      content:''; position:absolute;
-      width:30px; height:30px;
-      border-color: rgba(201,168,76,0.3);
-      border-style: solid;
-    }
-    .hero-frame::before { top:0; left:0;  border-width:1.5px 0 0 1.5px; }
-    .hero-frame::after  { top:0; right:0; border-width:1.5px 1.5px 0 0; }
-    .hero-frame .c-br   { bottom:0; right:0; border-width:0 1.5px 1.5px 0; }
-    .hero-frame .c-bl   { bottom:0; left:0;  border-width:0 0 1.5px 1.5px; }
-
-    /* Logo adaptatif */
-    .logo-img {
-      width: 95%;
-      max-width: 550px;
-      height: auto;
-      display: block;
-      margin: 0 auto 15px;
-      animation: fadeIn 1.2s ease both;
-    }
-
-    .cta-button {
-      display: inline-block;
-      padding: 12px 40px;
-      border: 1.5px solid var(--gold);
-      border-radius: 40px;
-      color: var(--gold-light);
-      font-family: 'Cinzel', serif;
-      font-size: 0.9rem;
-      letter-spacing: 0.15em;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: 0.3s;
-    }
-
-    .cta-button:hover {
-      box-shadow: 0 0 20px rgba(201,168,76,0.3);
-      background: rgba(201,168,76,0.05);
-    }
-
-    .divider {
-      display: flex; align-items: center; gap: 14px;
-      width: 100%; max-width: 350px; margin: 40px 0;
-    }
-    .divider-line { flex:1; height:1px; background: linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent); }
-    .divider-gem  { width:8px; height:8px; background:var(--gold); transform:rotate(45deg); }
-
-    .section-headline { text-align: center; margin-bottom: 50px; }
-    .section-headline h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      font-weight: 400;
-    }
-    .section-headline h2 em { font-style: italic; color: var(--gold-light); }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      width: 100%;
-    }
-
-    .video-card {
-      background: var(--dark-card);
-      border: 1px solid rgba(201,168,76,0.1);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: 0.3s ease;
+    .lang-btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 5px 10px;
       cursor: pointer;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      border-radius: 4px;
     }
+    .lang-btn:hover { background: rgba(201,168,76,0.1); }
 
-    .video-card:hover { transform: translateY(-5px); border-color: var(--gold); }
-
-    .video-thumbnail {
-      width: 100%;
-      aspect-ratio: 16/9;
-      position: relative;
-      background: #111;
+    /* Structure Logo */
+    .page-wrap { max-width: 1100px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+    .hero-frame { 
+      position: relative; padding: 40px; margin-bottom: 20px;
+      border: 1px solid rgba(201,168,76,0.2);
     }
+    .logo-img { width: 95%; max-width: 500px; height: auto; display: block; margin: 0 auto; }
 
-    .video-thumbnail img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+    /* Grille Vidéo */
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+    .video-card { background: #141414; border-radius: 12px; overflow: hidden; border: 1px solid rgba(201,168,76,0.1); }
+    .video-thumb { aspect-ratio: 16/9; background: #222; position: relative; }
+    .video-caption { padding: 20px; font-size: 1.2rem; }
 
-    .play-button {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 55px; height: 55px;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    .play-icon {
-      width: 0; height: 0;
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      border-left: 18px solid var(--gold-light);
-      margin-left: 5px;
-    }
-
-    .video-caption { padding: 20px; text-align: center; color: var(--text-muted); }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* Support RTL (Hébreu) */
+    body.rtl { direction: rtl; }
+    body.rtl .lang-switcher { right: auto; left: 20px; }
   </style>
 </head>
-<body>
-  
+<body id="body-tag">
+
+  <div class="lang-switcher">
+    <button class="lang-btn" onclick="changeLang('fr')">FR</button>
+    <button class="lang-btn" onclick="changeLang('en')">EN</button>
+    <button class="lang-btn" onclick="changeLang('he')">עב</button>
+  </div>
+
   <div class="page-wrap">
     <header>
       <div class="hero-frame">
-        <span class="c-br"></span>
-        <span class="c-bl"></span>
-        
-        <img class="logo-img" src="logo%20el%20hamaayan.png" alt="Logo El Hama'ayan">
+        <img class="logo-img" src="logo.png" onerror="this.src='https://placehold.co/600x200/0a0a0a/c9a84c?text=EL+HAMA%27AYAN'" alt="Logo">
       </div>
-      <a href="#" class="cta-button">Start Learning</a>
+      <h2 id="main-title">Découvrez la Sagesse</h2>
     </header>
-
-    <div class="divider">
-      <div class="divider-line"></div>
-      <div class="divider-gem"></div>
-      <div class="divider-line"></div>
-    </div>
-
-    <section class="section-headline">
-      <h2>Expand Your Knowledge and <em>Enlighten Your Life</em></h2>
-    </section>
 
     <div class="video-grid">
       <div class="video-card">
-        <div class="video-thumbnail">
-          <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=800" alt="Mysticism">
-          <div class="play-button"><div class="play-icon"></div></div>
-        </div>
-        <div class="video-caption">Introduction to Jewish Mysticism</div>
+        <div class="video-thumb"></div>
+        <div class="video-caption" id="vid-1">Mysticisme Juif</div>
       </div>
       <div class="video-card">
-        <div class="video-thumbnail">
-          <img src="https://images.unsplash.com/photo-1542820229-081e0c12af0b?auto=format&fit=crop&q=80&w=800" alt="History">
-          <div class="play-button"><div class="play-icon"></div></div>
-        </div>
-        <div class="video-caption">History and Spirituality of Israel</div>
-      </div>
-      <div class="video-card">
-        <div class="video-thumbnail">
-          <img src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&q=80&w=800" alt="Mindfulness">
-          <div class="play-button"><div class="play-icon"></div></div>
-        </div>
-        <div class="video-caption">Mindfulness and Jewish Wisdom</div>
+        <div class="video-thumb"></div>
+        <div class="video-caption" id="vid-2">Spiritualité d'Israël</div>
       </div>
     </div>
   </div>
 
+  <script>
+    const translations = {
+      fr: {
+        title: "Découvrez la Sagesse",
+        vid1: "Mysticisme Juif",
+        vid2: "Spiritualité d'Israël"
+      },
+      en: {
+        title: "Discover Wisdom",
+        vid1: "Jewish Mysticism",
+        vid2: "Spirituality of Israel"
+      },
+      he: {
+        title: "גלו את החוכמה",
+        vid1: "מיסטיקה יהודית",
+        vid2: "רוחניות ישראל"
+      }
+    };
+
+    function changeLang(lang) {
+      const body = document.getElementById('body-tag');
+      
+      // Gérer la direction du texte
+      if (lang === 'he') {
+        body.classList.add('rtl');
+      } else {
+        body.classList.remove('rtl');
+      }
+
+      // Changer les textes
+      document.getElementById('main-title').innerText = translations[lang].title;
+      document.getElementById('vid-1').innerText = translations[lang].vid1;
+      document.getElementById('vid-2').innerText = translations[lang].vid2;
+    }
+  </script>
 </body>
 </html>
