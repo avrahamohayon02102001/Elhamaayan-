@@ -1,61 +1,65 @@
-/* Header plus flexible pour éviter l'empiétement */
-header {
-    background: rgba(10, 10, 10, 0.95);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-    padding: 15px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap; /* Crucial : permet de passer à la ligne si pas de place */
-    gap: 20px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Hama'ayan | Prestige & Lumière</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="main-body">
 
-.logo-section { 
-    display: flex; 
-    align-items: center; 
-    gap: 15px; 
-    flex: 1; /* Prend l'espace nécessaire sans écraser */
-    min-width: 250px;
-}
+    <nav class="lang-switcher">
+        <button class="lang-btn active" id="btn-fr" onclick="updateLang('fr')">FR</button>
+        <button class="lang-btn" id="btn-en" onclick="updateLang('en')">EN</button>
+        <button class="lang-btn" id="btn-he" onclick="updateLang('he')">עב</button>
+    </nav>
 
-/* Taille du logo mieux gérée */
-.logo-section img { 
-    height: auto; 
-    width: 60px; /* Taille fixe pour éviter les surprises au chargement */
-    object-fit: contain;
-}
+    <header>
+        <div class="logo-section">
+            <img src="277dd7b0-3ba4-11f1-8971-d5e2d3d3dc98.png" alt="Logo El Hama'ayan">
+        </div>
+    </header>
 
-.logo-text h1 { 
-    font-family: 'Lora', serif; 
-    font-size: clamp(18px, 4vw, 24px); /* Taille adaptative */
-    color: var(--gold); 
-    line-height: 1.1;
-}
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2 id="main-title">L'Excellence <em>Éclairée</em></h2>
+                <p id="main-desc">Une expérience fluide, raffinée et résolument moderne.</p>
+                <a href="#" class="cta-button" id="cta-text">Découvrir l'univers</a>
+            </div>
+        </section>
 
-/* Navigation qui ne chevauche pas */
-nav { 
-    display: flex; 
-    gap: 20px; 
-    flex-wrap: wrap; 
-}
+        <section class="video-section">
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <img src="https://picsum.photos/seed/wisdom1/800/450" alt="Video">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <p class="video-label" id="v1-title">Mysticisme Juif</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <img src="https://picsum.photos/seed/wisdom2/800/450" alt="Video">
+                        <div class="play-overlay"><span>▶</span></div>
+                    </div>
+                    <p class="video-label" id="v2-title">Spiritualité d'Israël</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-/* Espacement Hero pour éviter que le header ne cache le titre */
-.hero {
-    padding: 60px 40px;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 40px;
-}
-
-/* Mobile : on empile tout proprement */
-@media (max-width: 768px) {
-    header { justify-content: center; text-align: center; }
-    .logo-section { justify-content: center; }
-    nav { justify-content: center; width: 100%; }
-    .hero { flex-direction: column; text-align: center; }
-}
+    <script>
+        const content = {
+            fr: {
+                cta: "Découvrir l'univers",
+                title: "L'Excellence <em>Éclairée</em>",
+                desc: "Une expérience fluide, raffinée et résolument moderne.",
+                v1: "Mysticisme Juif", v2: "Spiritualité d'Israël"
+            },
+            en: {
+                cta: "Discover the Universe",
+                title: "Enlightened <em>Excell
+                    
