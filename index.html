@@ -1,309 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El HaMa'ayan - Explore the Depths of Knowledge</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Roboto:wght@400;700&family=Inter:wght@400&family=Heebo:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --gold: #D4AF37;
-            --dark-bg: #0A0A0A;
-            --text-main: #FFFFFF;
-            --text-sub: #8899BB;
-        }
+/* Header plus flexible pour éviter l'empiétement */
+header {
+    background: rgba(10, 10, 10, 0.95);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Crucial : permet de passer à la ligne si pas de place */
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--dark-bg);
-            /* Texture grainée subtile */
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAADUlEQVQIW2P4z8DwHwAFBQIAX8jx0gAAAABJRU5ErkJggg==');
-            background-size: 2px 2px;
-            color: var(--text-main);
-            overflow-x: hidden;
-            line-height: 1.6;
-            transition: direction 0.3s ease;
-        }
+.logo-section { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    flex: 1; /* Prend l'espace nécessaire sans écraser */
+    min-width: 250px;
+}
 
-        body.rtl { direction: rtl; }
+/* Taille du logo mieux gérée */
+.logo-section img { 
+    height: auto; 
+    width: 60px; /* Taille fixe pour éviter les surprises au chargement */
+    object-fit: contain;
+}
 
-        /* Golden Frame Container */
-        .master-frame {
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            margin: 20px;
-            position: relative;
-            min-height: calc(100vh - 40px);
-        }
+.logo-text h1 { 
+    font-family: 'Lora', serif; 
+    font-size: clamp(18px, 4vw, 24px); /* Taille adaptative */
+    color: var(--gold); 
+    line-height: 1.1;
+}
 
-        /* Language Switcher */
-        .lang-switcher {
-            position: absolute;
-            top: 30px;
-            right: 60px;
-            z-index: 1100;
-            display: flex;
-            gap: 10px;
-        }
+/* Navigation qui ne chevauche pas */
+nav { 
+    display: flex; 
+    gap: 20px; 
+    flex-wrap: wrap; 
+}
 
-        body.rtl .lang-switcher { right: auto; left: 60px; }
+/* Espacement Hero pour éviter que le header ne cache le titre */
+.hero {
+    padding: 60px 40px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+}
 
-        .lang-btn {
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 5px 12px;
-            cursor: pointer;
-            font-family: 'Lora', serif;
-            font-size: 0.8rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .lang-btn:hover { background: rgba(212, 175, 55, 0.1); transform: translateY(-2px); }
-        .lang-btn.active { background: var(--gold); color: #000; }
-
-        /* Header */
-        header {
-            background: rgba(10, 10, 10, 0.95);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 25px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo-section { display: flex; align-items: center; gap: 20px; }
-        .logo-section img { height: 50px; width: auto; }
-        .logo-text h1 { font-family: 'Lora', serif; font-size: 24px; color: var(--gold); letter-spacing: 2px; }
-        .logo-text p { font-family: 'Heebo', sans-serif; font-size: 11px; color: var(--text-sub); letter-spacing: 1px; }
-
-        nav { display: flex; gap: 30px; }
-        nav a { color: var(--text-main); text-decoration: none; font-size: 13px; letter-spacing: 1px; transition: 0.3s; }
-        nav a:hover { color: var(--gold); text-shadow: 0 0 8px rgba(212, 175, 55, 0.5); }
-
-        /* Hero */
-        .hero {
-            padding: 100px 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 50px;
-        }
-
-        .hero-content { flex: 1.2; }
-        .hero-content h2 { font-family: 'Lora', serif; font-size: 48px; color: var(--gold); margin-bottom: 25px; line-height: 1.2; }
-        .hero-content p { font-size: 16px; color: var(--text-sub); margin-bottom: 40px; max-width: 600px; }
-
-        .hero-logo { flex: 0.8; text-align: center; }
-        .hero-logo img { width: 100%; max-width: 350px; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.2)); }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            text-decoration: none;
-            font-family: 'Lora', serif;
-            border-radius: 50px;
-            transition: 0.3s;
-            background: transparent;
-        }
-
-        .cta-button:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
-
-        /* Video Grid */
-        .video-section { padding: 80px 60px; }
-        .section-title { font-family: 'Lora', serif; font-size: 32px; color: var(--gold); text-align: center; margin-bottom: 50px; }
-        
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .video-card {
-            background: #111;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: 0.4s;
-            position: relative;
-        }
-
-        .video-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-
-        .video-thumb {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #222;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .play-icon {
-            width: 60px;
-            height: 60px;
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            font-size: 20px;
-            background: rgba(0,0,0,0.5);
-            transition: 0.3s;
-        }
-
-        .video-card:hover .play-icon { background: var(--gold); color: #000; transform: scale(1.1); }
-
-        .video-caption { padding: 25px; font-family: 'Lora', serif; font-size: 18px; color: var(--text-main); text-align: center; }
-
-        /* Animations */
-        .fade-in { animation: fadeIn 1.2s ease-out both; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        footer {
-            padding: 60px;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            text-align: center;
-            color: var(--text-sub);
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body id="body-tag" class="fade-in">
-
-    <div class="lang-switcher">
-        <button id="btn-fr" class="lang-btn" onclick="changeLang('fr')">FR</button>
-        <button id="btn-en" class="lang-btn active" onclick="changeLang('en')">EN</button>
-        <button id="btn-he" class="lang-btn" onclick="changeLang('he')">עב</button>
-    </div>
-
-    <div class="master-frame">
-        <header>
-            <div class="logo-section">
-                <img src="https://elhamaayan.com/wp-content/uploads/2024/03/logo.png" alt="Logo">
-                <div class="logo-text">
-                    <h1>EL HAMA'AYAN</h1>
-                    <p id="nav-tagline">Exploring the Depths of Wisdom</p>
-                </div>
-            </div>
-            <nav>
-                <a href="#" id="nav-home">HOME</a>
-                <a href="#" id="nav-shiurim">SHIURIM</a>
-                <a href="#" id="nav-lecturers">LECTURERS</a>
-                <a href="#" id="nav-donate">DONATE</a>
-            </nav>
-        </header>
-
-        <section class="hero">
-            <div class="hero-content">
-                <h2 id="hero-title">Expand Your Knowledge and <em>Enlighten Your Life</em></h2>
-                <p id="hero-desc">Explore our curated courses and upcoming online events designed to enrich your spiritual and intellectual journey.</p>
-                <a href="#" class="cta-button" id="hero-cta">Start Learning</a>
-            </div>
-            <div class="hero-logo">
-                <img src="https://elhamaayan.com/wp-content/uploads/2024/03/logo.png" alt="Main Logo">
-            </div>
-        </section>
-
-        <section class="video-section">
-            <h3 class="section-title" id="section-courses">Featured Courses</h3>
-            <div class="video-grid">
-                <div class="video-card">
-                    <div class="video-thumb"><div class="play-icon"><i class="fas fa-play"></i></div></div>
-                    <div class="video-caption" id="vid-1">Jewish Mysticism</div>
-                </div>
-                <div class="video-card">
-                    <div class="video-thumb"><div class="play-icon"><i class="fas fa-play"></i></div></div>
-                    <div class="video-caption" id="vid-2">Spirituality of Israel</div>
-                </div>
-                <div class="video-card">
-                    <div class="video-thumb"><div class="play-icon"><i class="fas fa-play"></i></div></div>
-                    <div class="video-caption" id="vid-3">Mindfulness & Wisdom</div>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <p id="footer-copy">&copy; 2026 EL HAMA'AYAN. All Rights Reserved. Dedicated to Wisdom and Light.</p>
-        </footer>
-    </div>
-
-    <script>
-        const translations = {
-            fr: {
-                tagline: "Explorer les profondeurs de la sagesse",
-                home: "ACCUEIL", shiurim: "SHIURIM", lecturers: "INTERVENANTS", donate: "FAIRE UN DON",
-                heroTitle: "Élargissez vos connaissances et <em>illuminez votre vie</em>",
-                heroDesc: "Explorez nos cours et événements en ligne conçus pour enrichir votre parcours spirituel et intellectuel.",
-                heroCta: "Commencer l'apprentissage",
-                courses: "Cours à la une",
-                vid1: "Mysticisme Juif", vid2: "Spiritualité d'Israël", vid3: "Pleine conscience et Sagesse",
-                copy: "&copy; 2026 EL HAMA'AYAN. Tous droits réservés. Dédié à la Sagesse et à la Lumière."
-            },
-            en: {
-                tagline: "Exploring the Depths of Wisdom",
-                home: "HOME", shiurim: "SHIURIM", lecturers: "LECTURERS", donate: "DONATE",
-                heroTitle: "Expand Your Knowledge and <em>Enlighten Your Life</em>",
-                heroDesc: "Explore our curated courses and upcoming online events designed to enrich your spiritual and intellectual journey.",
-                heroCta: "Start Learning",
-                courses: "Featured Courses",
-                vid1: "Jewish Mysticism", vid2: "Spirituality of Israel", vid3: "Mindfulness & Wisdom",
-                copy: "&copy; 2026 EL HAMA'AYAN. All Rights Reserved. Dedicated to Wisdom and Light."
-            },
-            he: {
-                tagline: "חוקרים את מעמקי החוכמה",
-                home: "דף הבית", shiurim: "שיעורים", lecturers: "מרצים", donate: "תרומה",
-                heroTitle: "הרחיבו את הידע שלכם <em>והאירו את חייכם</em>",
-                heroDesc: "גלו את הקורסים והאירועים המקוונים שלנו שנועדו להעשיר את המסע הרוחני והאינטלקטואלי שלכם.",
-                heroCta: "התחילו ללמוד",
-                courses: "קורסים נבחרים",
-                vid1: "מיסטיקה יהודית", vid2: "רוחניות ישראל", vid3: "מיינדפולנס וחוכמה",
-                copy: "&copy; 2026 EL HAMA'AYAN. כל הזכויות שמורות. מוקדש לחוכמה ולאור."
-            }
-        };
-
-        function changeLang(lang) {
-            const body = document.getElementById('body-tag');
-            
-            // Handle RTL
-            if (lang === 'he') body.classList.add('rtl');
-            else body.classList.remove('rtl');
-
-            // Update Active Button
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('btn-' + lang).classList.add('active');
-
-            // Update Content
-            const t = translations[lang];
-            document.getElementById('nav-tagline').innerText = t.tagline;
-            document.getElementById('nav-home').innerText = t.home;
-            document.getElementById('nav-shiurim').innerText = t.shiurim;
-            document.getElementById('nav-lecturers').innerText = t.lecturers;
-            document.getElementById('nav-donate').innerText = t.donate;
-            document.getElementById('hero-title').innerHTML = t.heroTitle;
-            document.getElementById('hero-desc').innerText = t.heroDesc;
-            document.getElementById('hero-cta').innerText = t.heroCta;
-            document.getElementById('section-courses').innerText = t.courses;
-            document.getElementById('vid-1').innerText = t.vid1;
-            document.getElementById('vid-2').innerText = t.vid2;
-            document.getElementById('vid-3').innerText = t.vid3;
-            document.getElementById('footer-copy').innerHTML = t.copy;
-        }
-    </script>
-</body>
-</html>
+/* Mobile : on empile tout proprement */
+@media (max-width: 768px) {
+    header { justify-content: center; text-align: center; }
+    .logo-section { justify-content: center; }
+    nav { justify-content: center; width: 100%; }
+    .hero { flex-direction: column; text-align: center; }
+}
